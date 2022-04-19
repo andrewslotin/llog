@@ -1,6 +1,9 @@
 Simple Leveled Logger
 =====================
 
+[![Documentation](https://pkg.go.dev/badge/github.com/andrewslotin/llog)][godoc]
+[![Go Report Card](https://goreportcard.com/badge/github.com/andrewslotin/llog)](https://goreportcard.com/report/github.com/andrewslotin/llog)
+
 `github.com/andrewslotin/llog` is a library that provides leveled logs to the Go standard library's `log.Logger`.
 
 Installation
