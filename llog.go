@@ -53,7 +53,7 @@ func NewWriter(out io.Writer, lvl Level) *Writer {
 }
 
 // Write determines the log level of the message and writes it to the underlying io.Writer if the log level is greater than or equal to the Writer's log level.
-// The log level of the message is determined by the message prefix:
+// The log level of the message is determined by the case-sensitive message prefix:
 // * messages starting with "missing" or "fatal" are considered fatal errors
 // * messages starting with "error" or "failed" are considered errors
 // * messages starting with "warn" are considered warnings
