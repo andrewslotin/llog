@@ -1,6 +1,8 @@
 package llog_test
 
 import (
+	"io"
+	"log"
 	"testing"
 
 	"github.com/andrewslotin/llog"
@@ -42,6 +44,32 @@ func TestWriter_Write(t *testing.T) {
 			assert.Equal(t, expected, m.Messages)
 		})
 	}
+}
+
+func BenchmarkWriter_Write(b *testing.B) {
+	l := log.New(llog.NewWriter(noopWriter(), llog.InfoLevel), "", log.LstdFlags)
+
+	for i := 0; i < b.N; i++ {
+		l.Println("test message")
+	}
+}
+
+func BenchmarkWriter_NoWriter(b *testing.B) {
+	// noopWriter() wraps io.Discard to bypass the (*log.Logger).Output() optimization
+	// when it ignores the message completely is the output is set to io.Discard
+	l := log.New(noopWriter(), "", log.LstdFlags)
+
+	for i := 0; i < b.N; i++ {
+		l.Println("test message")
+	}
+}
+
+type wrappedWriter struct {
+	io.Writer
+}
+
+func noopWriter() wrappedWriter {
+	return wrappedWriter{io.Discard}
 }
 
 type writerMock struct {
